@@ -13,12 +13,12 @@ create_staging_table = (
       lat numeric,
       lon numeric,
       timezone varchar,
-      local_time int,
-      updated_time int,
+      local_timestamp int,
+      local_datetime varchar(16),
+      updated_timestamp int,
+      updated_datetime varchar(16),
       temp_c numeric,
-      feelslike_c numeric,
       temp_f numeric,
-      feelslike_f numeric,
       wind_mph numeric,
       wind_kph numeric,
       wind_degree int,
@@ -29,6 +29,8 @@ create_staging_table = (
       precip_in numeric,
       humidity int,
       cloud int,
+      feelslike_c numeric,
+      feelslike_f numeric,
       vis_km numeric,
       vis_miles numeric,
       uv numeric,
@@ -91,6 +93,23 @@ create_datetime_table = (
       day smallint,
       month smallint,
       year smallint
+    );
+    """
+)
+
+insert_staging_table = (
+    """
+    INSERT INTO realtime_weather_staging (
+      location, region, country, lat, lon, timezone, local_timestamp, local_datetime, 
+      updated_timestamp, updated_datetime, temp_c, temp_f, wind_mph, wind_kph, wind_degree, wind_dir, 
+      pressure_mb, pressure_in, precip_mm, precip_in, humidity, cloud, feelslike_c, feelslike_f, 
+      vis_km, vis_miles, uv, gust_mph, gust_kph
+    ) 
+    VALUES (
+      %s, %s, %s, %s, %s, %s, %s, %s, 
+      %s, %s, %s, %s, %s, %s, %s, %s, 
+      %s, %s, %s, %s, %s, %s, %s, %s, 
+      %s, %s, %s, %s, %s
     );
     """
 )
