@@ -3,7 +3,7 @@ import glob
 import json
 import psycopg2
 import configparser
-from queries import InsertData
+from sql_queries import InsertData
 
 
 def process_records_file(cur, filepath: str):
