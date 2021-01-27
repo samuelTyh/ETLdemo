@@ -2,6 +2,7 @@ drop_staging_table = "DROP TABLE IF EXISTS realtime_weather_staging;"
 drop_location_table = "DROP TABLE IF EXISTS location;"
 drop_current_weather_table = "DROP TABLE IF EXISTS current_weather;"
 drop_datetime_table = "DROP TABLE IF EXISTS datetime;"
+drop_daily_temperature = "DROP TABLE IF EXISTS daily_temperature;"
 
 
 create_staging_table = (
@@ -98,7 +99,20 @@ create_datetime_table = (
     """
 )
 
+create_daily_temperature = (
+    """
+    CREATE TABLE IF NOT EXISTS daily_temperature (
+      date timestamp,
+      location varchar,
+      temperature_celsius numeric,
+      temperature_fahrenheit numeric,
+      PRIMARY KEY (date, location)
+    );
+    """
+)
+
 
 create_table_queries = [create_staging_table, create_current_weather_table, create_location_table,
-                        create_datetime_table]
-drop_table_queries = [drop_staging_table, drop_current_weather_table, drop_location_table, drop_datetime_table]
+                        create_datetime_table, create_daily_temperature]
+drop_table_queries = [drop_staging_table, drop_current_weather_table, drop_location_table, drop_datetime_table,
+                      drop_daily_temperature]

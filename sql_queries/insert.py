@@ -1,4 +1,4 @@
-class InsertData:
+class InsertDWH:
     staging_table = (
         """
         INSERT INTO realtime_weather_staging (
@@ -58,5 +58,23 @@ class InsertData:
             EXTRACT (YEAR FROM ts) AS year
         FROM dt
         ON CONFLICT (datetime_id) DO NOTHING;
+        """
+    )
+
+
+class DailyTemperature:
+    select_daily_temperature = (
+        """
+        INSERT INTO daily_temperature (date, location, temperature_celsius, temperature_fahrenheit)
+        WITH temp AS (
+          SELECT Date(c.retrieve_time_id) dt, l.location, c.temp_c, c.temp_f
+          FROM current_weather c
+          JOIN location l ON c.location_id = l.location_id
+        )
+        SELECT dt, location, round(avg(temp_c), 1), round(avg(temp_f), 1)
+        FROM temp
+        GROUP BY (dt, location)
+        ORDER BY (dt, location)
+        ON CONFLICT (date, location) DO NOTHING;
         """
     )

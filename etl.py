@@ -3,7 +3,7 @@ import glob
 import json
 import psycopg2
 import configparser
-from sql_queries import InsertData
+from sql_queries import InsertDWH, DailyTemperature
 
 
 def process_records_file(cur, filepath: str):
@@ -16,11 +16,15 @@ def process_records_file(cur, filepath: str):
     staging_data = location_data + weather_data
 
     # insert records
-    insert = InsertData()
+    insert = InsertDWH()
     cur.execute(insert.staging_table, staging_data)
     cur.execute(insert.location_table)
     cur.execute(insert.datetime_table)
     cur.execute(insert.current_weather_table)
+
+    # process daily temperature
+    daily = DailyTemperature()
+    cur.execute(daily.select_daily_temperature)
 
 
 def process_data(cur, conn, filepath: str, func):
