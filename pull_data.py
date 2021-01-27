@@ -46,12 +46,12 @@ def request_data(location: str):
             logger.error(response.json()['error']['message'])
             sys.exit(response.text)
             
-        filepath = f"data/"
-        filename = f"updated_at_{response.json()['location']['name']}" \
-                   f"{response.json()['current']['last_updated_epoch']}.json"
+        filepath = f"data/{response.json()['location']['name']}/"
+        filename = f"updated_at_{response.json()['current']['last_updated_epoch']}.json"
 
         with open(os.path.join(filepath, filename), 'wb') as f:
             f.write(response.content)
+        print(response.text)
     except Exception as e:
         return e
 
