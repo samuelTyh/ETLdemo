@@ -52,7 +52,7 @@ def main():
     conn = psycopg2.connect("host={} dbname={} user={} password={} port={}".format(*config['DB'].values()))
     cur = conn.cursor()
 
-    process_data(cur, conn, filepath='data', func=process_records_file)
+    process_data(cur, conn, filepath='./data', func=process_records_file)
 
     conn.close()
 
