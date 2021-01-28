@@ -31,6 +31,11 @@ args = parser.parse_args()
 
 
 def request_data(location: str):
+    """
+    Request weather data from RapidAPI
+    :param location: the location want to acquire
+    :return: data dump in JSON format
+    """
     url = "https://weatherapi-com.p.rapidapi.com/current.json"
 
     querystring = {"q": location}

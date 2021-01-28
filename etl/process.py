@@ -7,6 +7,11 @@ from sql_queries import InsertDWH, DailyTemperature
 
 
 def process_records_file(cur, filepath: str):
+    """
+    Process records data and insert the results into tables
+    :param cur: DB cursor
+    :param filepath: record file path
+    """
     with open(filepath, 'r') as file:
         data = json.load(file)
 
@@ -28,6 +33,13 @@ def process_records_file(cur, filepath: str):
 
 
 def process_data(cur, conn, filepath: str, func):
+    """
+    Iterate execution for files processing
+    :param cur: DB cursor
+    :param conn: DB connection
+    :param filepath: record file path
+    :param func: the function to be run
+    """
     all_files = []
     for root, dirs, files in os.walk(filepath):
         files = glob.glob(os.path.join(root, '*.json'))

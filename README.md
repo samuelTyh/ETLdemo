@@ -37,6 +37,11 @@ DB_USER=
 DB_PASSWORD=
 DB_PORT=
 ```
+#### Set the location parameter in `Makefile`
+```
+YOUR_CITY=<CITY-COUNTRY-OR-REGION-NAME>
+```
+
 #### Run jobs
 ```
 make install     # install dependencies 

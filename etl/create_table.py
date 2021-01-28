@@ -4,12 +4,22 @@ import configparser
 
 
 def drop_tables(cur, conn):
+    """
+    Execute drop queries
+    :param cur: DB cursor
+    :param conn: DB connection
+    """
     for query in drop_table_queries:
         cur.execute(query)
         conn.commit()
 
 
 def create_tables(cur, conn):
+    """
+    Execute create queries
+    :param cur: DB cursor
+    :param conn: DB connection
+    """
     for query in create_table_queries:
         cur.execute(query)
         conn.commit()

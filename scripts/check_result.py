@@ -4,6 +4,10 @@ import pandas
 
 
 def print_latest_daily_temperature():
+    """
+    Print out 10 latest records of requirement
+    :return: table will be printed out in the terminal
+    """
     config = configparser.ConfigParser()
     config.read('config.cfg')
 
