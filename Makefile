@@ -8,3 +8,6 @@ pull:
 
 run:
 		bash ./scripts/run.sh
+
+check:
+		python scripts/check_result.py
