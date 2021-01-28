@@ -19,13 +19,13 @@ def print_latest_daily_temperature():
         """
     )
 
-    result = cur.fetchone()
+    result = cur.fetchall()
     columns = [des[0] for des in cur.description]
 
     if not result:
         return ConnectionError("Check DB connection")
 
-    result = pandas.DataFrame([result], columns=columns)
+    result = pandas.DataFrame(result, columns=columns)
     print(result)
 
 
