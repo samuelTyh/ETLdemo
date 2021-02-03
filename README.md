@@ -1,7 +1,12 @@
-## Daily Temperature ETL Demo
+## Daily Temperature - Data Pipeline Demo
 
-Quick ETL job to extract weather data from [WeatherAPI.com](https://www.weatherapi.com/)
-to PostgreSQL database.
+Aim to build an easy-manageable ETL pipeline, including the jobs to extract 
+weather data from [WeatherAPI.com](https://www.weatherapi.com/)
+load into PostgreSQL, and transform them as the requirements need.
+
+### Demand hypothesis
+The goal is to create an easy-to-view table containing dates and daily average 
+temperatures from my current living city, Berlin (the location can be changed in `Makefile`).
 
 ### Prerequisites
 1. Apply an API Key from [RapidAPI](https://rapidapi.com/marketplace)
@@ -28,7 +33,7 @@ cd /to/your/working/directory
 Create `config.cfg` and fill in your API Key, DB's configuration, etc.
 ```
 [weather-api]
-API_KEY=<YOUR-API-KEY>
+API_KEY=<YOUR-RAPIDAPI-KEY>
 
 [DB]
 HOST=
@@ -54,6 +59,7 @@ make check
 ```
 
 ### TODO
-1. Set up cron job to pull data routinely
+1. Set up cron job to pull data routinely (apache airflow)
 2. try-catch error
-3. Dockerize
+3. Dockerize and build test database
+4. monitoring (apache airflow)
