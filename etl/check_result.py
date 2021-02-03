@@ -1,6 +1,8 @@
 import psycopg2
 import configparser
+import argparse
 import pandas
+from sql_queries import latest_10_days_average_temperature
 
 
 def print_latest_daily_temperature():
@@ -14,14 +16,7 @@ def print_latest_daily_temperature():
     conn = psycopg2.connect("host={} dbname={} user={} password={} port={}".format(*config['DB'].values()))
     cur = conn.cursor()
 
-    cur.execute(
-        """
-        SELECT date, location, temperature_celsius, temperature_fahrenheit
-        FROM daily_temperature
-        ORDER BY date DESC
-        LIMIT 10;
-        """
-    )
+    cur.execute(latest_10_days_average_temperature)
 
     result = cur.fetchall()
     columns = [des[0] for des in cur.description]
@@ -34,4 +29,12 @@ def print_latest_daily_temperature():
 
 
 if __name__ == "__main__":
-    print_latest_daily_temperature()
+    parser = argparse.ArgumentParser()
+    parser.add_argument(
+        '--temp', help="Retrieve the daily temperature table", action='store_true')
+    args = parser.parse_args()
+
+    if args.temp:
+        print_latest_daily_temperature()
+    else:
+        raise ValueError("Specify the flag of the table to be retrieved, e.g. --temp")

@@ -5,7 +5,7 @@ import configparser
 import argparse
 import logging
 
-logging.basicConfig(filename='log.log',
+logging.basicConfig(filename='../../log.log',
                     format='%(asctime)s %(levelname)-8s %(message)s',
                     level=logging.INFO,
                     datefmt='%Y-%m-%d %H:%M:%S')

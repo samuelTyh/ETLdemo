@@ -63,3 +63,4 @@ make check
 2. try-catch error
 3. Dockerize and build test database
 4. monitoring (apache airflow)
+5. testing
