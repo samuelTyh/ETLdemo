@@ -16,7 +16,8 @@ def process_records_file(cur, filepath: str):
         data = json.load(file)
 
     location_data = [value for value in data['location'].values()]
-    weather_data = [value for value in data['current'].values()][:4] + \
+    weather_data = [value for value in data['current'].values()][:5] + \
+                   [value for value in data['current']['condition'].values()] + \
                    [value for value in data['current'].values()][6:]
     staging_data = location_data + weather_data
 

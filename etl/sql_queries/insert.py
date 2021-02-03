@@ -2,16 +2,16 @@ class InsertDWH:
     staging_table = (
         """
         INSERT INTO realtime_weather_staging (
-          location, region, country, lat, lon, timezone, local_timestamp, local_datetime, 
-          updated_timestamp, updated_datetime, temp_c, temp_f, wind_mph, wind_kph, wind_degree, wind_dir, 
-          pressure_mb, pressure_in, precip_mm, precip_in, humidity, cloud, feelslike_c, feelslike_f, 
-          vis_km, vis_miles, uv, gust_mph, gust_kph
+          location, region, country, lat, lon, timezone, local_timestamp, local_datetime, updated_timestamp, 
+          updated_datetime, temp_c, temp_f, is_day, condition_text, condition_icon, condition_code, wind_mph, 
+          wind_kph, wind_degree, wind_dir, pressure_mb, pressure_in, precip_mm, precip_in, humidity, cloud, 
+          feelslike_c, feelslike_f, vis_km, vis_miles, uv, gust_mph, gust_kph
         ) 
         VALUES (
-          %s, %s, %s, %s, %s, %s, %s, %s, 
-          %s, %s, %s, %s, %s, %s, %s, %s, 
-          %s, %s, %s, %s, %s, %s, %s, %s, 
-          %s, %s, %s, %s, %s
+          %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, 
+          %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, 
+          %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, 
+          %s, %s, %s
         )
         ON CONFLICT (local_timestamp, location) DO NOTHING;
         """
