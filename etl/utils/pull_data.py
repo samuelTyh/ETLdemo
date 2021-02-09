@@ -16,6 +16,7 @@ config = configparser.ConfigParser()
 config.read('config.cfg')
 
 parser = argparse.ArgumentParser()
+parser.add_argument("filepath", type=str, help="Where the source data stored")
 parser.add_argument("query", type=str,
                     help="Query parameter based on which data is sent back. It could be following: \
                     Latitude and Longitude (Decimal degree) e.g: q=48.8567,2.3508 \
@@ -30,9 +31,10 @@ parser.add_argument("query", type=str,
 args = parser.parse_args()
 
 
-def request_data(location: str):
+def request_data(filepath: str, location: str):
     """
     Request weather data from RapidAPI
+    :param filepath: file's relative path
     :param location: the location want to acquire
     :return: data dump in JSON format
     """
@@ -51,7 +53,7 @@ def request_data(location: str):
             logger.error(response.json()['error']['message'])
             sys.exit(response.text)
             
-        filepath = f"data/{response.json()['location']['name']}/"
+        filepath = f"{filepath}{response.json()['location']['name']}/"
         filename = f"updated_at_{response.json()['current']['last_updated_epoch']}.json"
 
         with open(os.path.join(filepath, filename), 'wb') as f:
@@ -62,4 +64,4 @@ def request_data(location: str):
 
 
 if __name__ == "__main__":
-    request_data(args.query)
+    request_data(args.filepath, args.query)
